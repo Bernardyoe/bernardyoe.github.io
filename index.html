@@ -41,14 +41,15 @@
             justify-self: start;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.2rem; /* Perkecil sedikit font */
+            gap: 15px;
+            font-size: 1.5rem; /* Kembalikan size original */
             font-weight: bold;
             white-space: nowrap; /* Paksa 1 baris */
-            min-width: 0; /* Biar bisa shrink */
+            animation: fadeInLeft 0.8s ease;
         }
+
         .logo span {
-        white-space: nowrap; /* Text logo 1 baris */
+            white-space: nowrap; /* Text tidak wrap ke baris baru */
         }
 
         .logo-icon {
@@ -1415,12 +1416,12 @@
         }
         nav {
             display: grid;
-            grid-template-columns: 1fr auto 1fr; /* 3 kolom: Kiri | Tengah | Kanan */
+            grid-template-columns: minmax(200px, auto) 1fr minmax(250px, auto); /* Dinamis tapi ada min width */
             align-items: center;
             max-width: 1400px;
             margin: 0 auto;
             padding: 1rem 2rem;
-            gap: 2rem;
+            gap: 1.5rem; /* Kurangi gap */
         }
 
         .nav-right {
