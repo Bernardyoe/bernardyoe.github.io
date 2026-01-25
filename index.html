@@ -1641,28 +1641,30 @@
         ============================================ */
 
         nav {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: auto 1fr auto; /* Logo | Menu Tengah | User */
             align-items: center;
             max-width: 1400px;
             margin: 0 auto;
             padding: 1rem 2rem;
-            position: relative; /* Penting untuk positioning */
+            gap: 2rem;
+        }
+
+        .logo {
+            justify-self: start; /* Paksa ke kiri */
         }
 
         .nav-right {
             display: flex;
             align-items: center;
+            justify-content: center; /* Menu di tengah */
             gap: 2rem;
-            position: absolute; /* Posisi absolute */
-            left: 50%; /* Mulai dari tengah */
-            transform: translateX(-50%); /* Geser ke tengah sempurna */
         }
 
-        av ul {
+        nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem; /* Gap besar karena di tengah */
+            gap: 2rem;
             margin: 0;
             padding: 0;
             align-items: center;
@@ -1676,7 +1678,7 @@
             padding: 0.5rem 1rem;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 1.1rem; /* Font lebih besar */
+            font-size: 1.1rem;
         }
 
         nav ul li a:hover {
@@ -1694,14 +1696,10 @@
             font-weight: bold;
         }
 
-        .admin-link:hover {
-            background: #ffed4e !important;
-        }
-
         .user-menu {
             display: flex;
             align-items: center;
-            -content: flex-end; /* Ke kanan */
+            justify-content: flex-end; /* Paksa ke kanan */
             gap: 1rem;
         }
 
