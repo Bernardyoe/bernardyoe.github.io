@@ -38,12 +38,17 @@
         }
 
         .logo {
+            justify-self: start;
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-size: 1.5rem;
+            gap: 10px;
+            font-size: 1.2rem; /* Perkecil sedikit font */
             font-weight: bold;
-            animation: fadeInLeft 0.8s ease;
+            white-space: nowrap; /* Paksa 1 baris */
+            min-width: 0; /* Biar bisa shrink */
+        }
+        .logo span {
+        white-space: nowrap; /* Text logo 1 baris */
         }
 
         .logo-icon {
@@ -1642,7 +1647,7 @@
 
         nav {
             display: grid;
-            grid-template-columns: auto 1fr auto; /* Logo | Menu Tengah | User */
+            grid-template-columns: 250px 1fr 300px; /* Fixed width untuk logo & user */
             align-items: center;
             max-width: 1400px;
             margin: 0 auto;
@@ -1699,8 +1704,9 @@
         .user-menu {
             display: flex;
             align-items: center;
-            justify-content: flex-end; /* Paksa ke kanan */
+            justify-content: flex-end; 
             gap: 1rem;
+            min-width: 0; 
         }
 
         .login-btn {
