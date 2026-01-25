@@ -1444,32 +1444,34 @@
 <body>
     <!-- Navigation -->
     <header>
-        <nav>
-            <div class="logo">
-                <div class="logo-icon">
-                    <img src="logo.png" alt="Logo PT Segara Utama">
-                </div>
-                <span>PT Segara Utama</span>
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="logo.png" alt="Logo PT Segara Utama">
             </div>
-            <div class="nav-right">
-                <ul id="mainNav">
-                    <li><a onclick="showSection('beranda')" class="active">Beranda</a></li>
-                    <li><a onclick="showSection('profil')">Profil</a></li>
-                    <li><a onclick="showSection('layanan')">Layanan</a></li>
-                    <li><a onclick="showSection('informasi')">Informasi Pelayaran</a></li>
-                    <li><a onclick="showSection('kontak')">Kontak</a></li>
-                    <!-- TAMBAHAN: Link Admin (hanya muncul untuk admin) -->
-                    <li id="adminNavLink" style="display: none;">
-                        <a onclick="showSection('admin')" class="admin-link">🔐 Admin</a>
-                    </li>
-                </ul>
-                <!-- TAMBAHAN: User Menu -->
-                <div class="user-menu" id="userMenu">
-                    <button class="login-btn" onclick="showAuthModal()">Login / Register</button>
-                </div>
+            <span>PT Segara Utama</span>
+        </div>
+        
+        <div class="nav-right">
+            <ul id="mainNav">
+                <li><a onclick="showSection('beranda')" class="active">Beranda</a></li>
+                <li><a onclick="showSection('profil')">Profil</a></li>
+                <li><a onclick="showSection('layanan')">Layanan</a></li>
+                <li><a onclick="showSection('informasi')">Informasi Pelayaran</a></li>
+                <li><a onclick="showSection('kontak')">Kontak</a></li>
+                <!-- Admin Link (hanya muncul untuk admin) -->
+                <li id="adminNavLink" style="display: none;">
+                    <a onclick="showSection('admin')" class="admin-link">🔐 Admin</a>
+                </li>
+            </ul>
+            
+            <!-- User Menu -->
+            <div class="user-menu" id="userMenu">
+                <button class="login-btn" onclick="showAuthModal()">Login / Register</button>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
     <section id="beranda" class="section active">
         <div class="hero">

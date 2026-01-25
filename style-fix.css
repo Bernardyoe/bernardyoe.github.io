@@ -1,0 +1,208 @@
+/* ============================================
+   FIX: User Menu & Navigation Layout
+   ============================================ */
+
+/* Fix Navigation Layout */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+}
+
+/* Container untuk menu navigasi dan user menu */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Navigation Links */
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+nav ul li a:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+nav ul li a.active {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Admin Link - Yellow Background */
+.admin-link {
+    background: #ffd700 !important;
+    color: #1e3c72 !important;
+    font-weight: bold;
+    padding: 0.5rem 1.2rem !important;
+}
+
+.admin-link:hover {
+    background: #ffed4e !important;
+    transform: translateY(-2px);
+}
+
+/* User Menu Container */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 2rem;
+}
+
+/* Login Button */
+.login-btn {
+    background: #ffd700;
+    color: #1e3c72;
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.login-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 3px 10px rgba(255, 215, 0, 0.4);
+}
+
+/* User Info Display */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.4rem 1rem 0.4rem 0.4rem;
+    background: rgba(255,255,255,0.15);
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ffd700;
+    color: #1e3c72;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.user-role {
+    font-size: 0.75rem;
+    opacity: 0.85;
+    color: white;
+}
+
+.admin-badge {
+    background: #ffd700;
+    color: #1e3c72;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+/* Logout Button */
+.logout-btn {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.3);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.logout-btn:hover {
+    background: rgba(255,255,255,0.2);
+    border-color: white;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    nav ul {
+        gap: 1rem;
+    }
+    
+    nav ul li a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .user-menu {
+        margin-left: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-right {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .user-menu {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+    }
+}
