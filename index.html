@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT Segara Utama - Pelayaran Terpercaya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            animation: fadeInLeft 0.8s ease;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+            padding: 5px;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* === TAMBAHAN: Navigation Container untuk User Menu === */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        nav ul li a.active {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* === TAMBAHAN: Admin Link Styling === */
+        .admin-link {
+            background: #ffd700 !important;
+            color: #1e3c72 !important;
+            font-weight: bold;
+        }
+
+        .admin-link:hover {
+            background: #ffed4e !important;
+        }
+
+        /* === TAMBAHAN: User Menu Styles === */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .login-btn {
+            background: #ffd700;
+            color: #1e3c72;
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .login-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.4);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 1.2rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #ffd700;
+            color: #1e3c72;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .admin-badge {
+            background: #ffd700;
+            color: #1e3c72;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 0.3rem;
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: white;
+        }
+
+        .hero {
+            margin-top: 80px;
+            height: 600px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('hero-background.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            animation: fadeIn 1s ease;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+            height: 200px;
+            background: url('hero-text.png') no-repeat center center;
+            background-size: contain;
+            opacity: 0.95;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideDown 0.8s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: slideUp 0.8s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .cta-button {
+            background: #ffd700;
+            color: #1e3c72;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            padding-top: 7rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #beranda.section {
+            padding-top: 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 3rem;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: #ffd700;
+            margin: 1rem auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .about-text h3 {
+            color: #1e3c72;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .about-image {
+            text-align: center;
+            animation: slideInRight 0.8s ease;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            max-height: 600px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .about-image img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .about-image .image-caption {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .about-image .image-caption h4 {
+            color: #1e3c72;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .about-image .image-caption p {
+            color: #666;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .profile-card h3 {
+            color: #1e3c72;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-card ul {
+            list-style: none;
+        }
+
+        .profile-card ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .profile-card ul li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 2rem;
+        }
+
+        .service-content h3 {
+            color: #1e3c72;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-content ul {
+            list-style: none;
+        }
+
+        .service-content ul li {
+            padding: 0.3rem 0;
+        }
+
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .fleet-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .fleet-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .fleet-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .fleet-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .fleet-card:hover .fleet-image img {
+            transform: scale(1.1);
+        }
+
+        .fleet-info {
+            padding: 1.5rem;
+        }
+
+        .fleet-info h4 {
+            color: #1e3c72;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .booking-system {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .booking-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .booking-tab {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .booking-tab.active {
+            color: #1e3c72;
+            border-bottom-color: #ffd700;
+        }
+
+        .booking-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-field label {
+            color: #1e3c72;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-field select,
+        .form-field input {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-field select:focus,
+        .form-field input:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+
+        .search-button {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .search-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(30, 60, 114, 0.3);
+        }
+
+        .search-results {
+            display: none;
+            margin-top: 2rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .search-results.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .result-header h3 {
+            color: #1e3c72;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-route {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .no-results img {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .no-results h4 {
+            color: #1e3c72;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-results p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .schedule-result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            overflow-x: auto;
+        }
+
+        .schedule-result-table thead {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+
+        .schedule-result-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .schedule-result-table td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .schedule-result-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .ship-name {
+            font-weight: 600;
+            color: #1e3c72;
+            font-size: 1.1rem;
+        }
+
+        .ship-class {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .time-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .time-main {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .time-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .route-arrow {
+            text-align: center;
+            color: #ffd700;
+            font-size: 1.5rem;
+        }
+
+        .duration-info {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .price-info {
+            text-align: right;
+        }
+
+        .price-amount {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .select-button {
+            background: #ffd700;
+            color: #1e3c72;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .select-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* === TAMBAHAN: Modal Styles untuk Login/Register & Booking === */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 0;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Auth Modal Styles */
+        .auth-tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 2rem;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .auth-tab.active {
+            color: #1e3c72;
+            border-bottom-color: #ffd700;
+        }
+
+        .auth-tab:hover {
+            color: #1e3c72;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .admin-code-field {
+            display: none;
+        }
+
+        .admin-code-field.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+
+        /* Success Modal */
+        .success-modal {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #28a745;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 1.5rem;
+            animation: scaleIn 0.5s ease;
+        }
+
+        .booking-code {
+            background: #f8f9fa;
+            border: 2px dashed #1e3c72;
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1e3c72;
+            margin: 1.5rem 0;
+        }
+        .schedule-table {
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .schedule-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule-table th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .schedule-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .schedule-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .ticket-button {
+            background: #ffd700;
+            color: #1e3c72;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ticket-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.4);
+        }
+
+        .booking-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .booking-method {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .booking-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .booking-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+        }
+
+        .booking-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .policy-section {
+            margin-top: 4rem;
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 15px;
+        }
+
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .policy-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .policy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+        }
+
+        .policy-card h4 {
+            color: #1e3c72;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .policy-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .policy-card ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .policy-card ul li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #1e3c72;
+            font-weight: bold;
+        }
+
+        .branch-section {
+            margin-top: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .branch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .branch-card {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #1e3c72;
+            transition: all 0.3s ease;
+        }
+
+        .branch-card:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .branch-card h4 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .branch-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: #ffd700;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: slideInRight 0.8s ease;
+        }
+
+        /* === TAMBAHAN: Admin Panel Styles === */
+        .schedule-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .schedule-item {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-item:hover {
+            border-color: #2a5298;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .schedule-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .schedule-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .edit-btn:hover {
+            background: #e0a800;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .route-type-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .badge-penumpang {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-kargo {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #e0e0e0;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .footer-section a:hover {
+            color: #ffd700;
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            color: #e0e0e0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid,
+            .fleet-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="logo.png" alt="Logo PT Segara Utama">
+                </div>
+                <span>PT Segara Utama</span>
+            </div>
+            <div class="nav-right">
+                <ul id="mainNav">
+                    <li><a onclick="showSection('beranda')" class="active">Beranda</a></li>
+                    <li><a onclick="showSection('profil')">Profil</a></li>
+                    <li><a onclick="showSection('layanan')">Layanan</a></li>
+                    <li><a onclick="showSection('informasi')">Informasi Pelayaran</a></li>
+                    <li><a onclick="showSection('kontak')">Kontak</a></li>
+                    <!-- TAMBAHAN: Link Admin (hanya muncul untuk admin) -->
+                    <li id="adminNavLink" style="display: none;">
+                        <a onclick="showSection('admin')" class="admin-link">🔐 Admin</a>
+                    </li>
+                </ul>
+                <!-- TAMBAHAN: User Menu -->
+                <div class="user-menu" id="userMenu">
+                    <button class="login-btn" onclick="showAuthModal()">Login / Register</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="beranda" class="section active">
+        <div class="hero">
+            <div class="hero-content">
+              <h1>Solusi Pelayaran Terpercaya Nusantara</h1>
+                <p>Melayani Rute Sumatra, Bangka Belitung, Kepulauan Riau, Kalimantan & Jawa Barat</p>
+                <a onclick="showSection('informasi')" class="cta-button">Pesan Tiket Sekarang</a>
+            </div>
+        </div>
+
+        <div style="padding: 5rem 2rem; max-width: 1400px; margin: 0 auto;">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Tentang Kami</h3>
+                    <h2 class="section-title" style="text-align: left; font-size: 2rem;">PT Segara Utama</h2>
+                    <p>
+                        <strong>PT Segara Utama</strong> adalah perusahaan pelayaran terkemuka yang bergerak di bidang jasa transportasi laut antar pulau. Kami menyediakan layanan pengangkutan penumpang dan kargo dengan armada kapal modern yang aman dan nyaman.
+                    </p>
+                    <p>
+                        Dengan <strong>pengalaman sejak tahun 2025</strong>, kami berkomitmen untuk melayani masyarakat Indonesia dengan armada kapal modern. Komitmen kami adalah memberikan pelayanan terbaik dengan standar keselamatan internasional dan harga yang kompetitif.
+                    </p>
+                    <p>
+                        Kami melayani rute-rute strategis menghubungkan <strong>Sumatra, Bangka Belitung, Kepulauan Riau, Kalimantan, dan Jawa Barat</strong>, memfasilitasi mobilitas masyarakat dan distribusi barang antar wilayah dengan efisien dan tepat waktu.
+                    </p>
+                </div>
+                <div class="about-image">
+                    <img src="about-ship.png" alt="Kapal PT Segara Utama">
+                    <div class="image-caption">
+                        <h4>Calistus Iswahyudi</h4>
+                        <p>Direktur PT Segara Utama</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="branch-section">
+            <h3 style="color: #1e3c72; margin-bottom: 1rem; text-align: center; font-size: 1.6rem;">🏢 Kantor Cabang Kami</h3>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem;">Kami melayani Anda di berbagai lokasi strategis</p>
+            
+            <div class="branch-grid">
+                <div class="branch-card">
+                    <h4>📍 Cabang Jakarta (Kantor Utama)</h4>
+                    <p><strong>Alamat:</strong> Jl. Yos Sudarso No.30, RT.10/RW.6, Sungai Bambu, Kec. Tj. Priok, Jkt Utara, Daerah Khusus Ibukota Jakarta 14360</p>
+                    <p><strong>Telepon:</strong> 0811-1346-152</p>
+                    <p><strong>Email:</strong> gabriel_sebastian@tomang.ipeka.sch.id</p>
+                </div>
+
+                <div class="branch-card">
+                    <h4>📍 Cabang Palembang</h4>
+                    <p><strong>Alamat:</strong> 2QFJ+FC5, 3 Ilir, Ilir Timur II, Palembang City, South Sumatra 30111</p>
+                    <p><strong>Telepon:</strong> 0811-1346-152</p>
+                    <p><strong>Email:</strong> bernard_yoe@tomang.ipeka.sch.id</p>
+                </div>
+
+                <div class="branch-card">
+                    <h4>📍 Cabang Pangkalpinang</h4>
+                    <p><strong>Alamat:</strong> Jl. A. Yani No.46, Batin Tikal, Kec. Taman Sari, Kota Pangkal Pinang, Kepulauan Bangka Belitung 33684</p>
+                    <p><strong>Telepon:</strong> 0811-1346-152</p>
+                    <p><strong>Email:</strong> gabriel_sebastian@tomang.ipeka.sch.id</p>
+                </div>
+
+                <div class="branch-card">
+                    <h4>📍 Cabang Batam</h4>
+                    <p><strong>Alamat:</strong> Jl. Raya Pelabuhan, Kabil, Kecamatan Nongsa, Kota Batam, Kepulauan Riau 29467u</p>
+                    <p><strong>Telepon:</strong> 0811-1346-152</p>
+                    <p><strong>Email:</strong> gabriel_sebastian@tomang.ipeka.sch.id</p>
+                </div>
+
+                <div class="branch-card">
+                    <h4>📍 Cabang Tanjung Pinang</h4>
+                    <p><strong>Alamat:</strong> Komplek Ruko, Jl. Bintan Center No.12 Blok C, Air Raja, Kec. Tanjungpinang Tim., Kota Tanjung Pinang, Kepulauan Riau 29125</p>
+                    <p><strong>Telepon:</strong> 0811-1346-152</p>
+                    <p><strong>Email:</strong> bernard_yoe@tomang.ipeka.sch.id</p>
+                </div>
+
+                <div class="branch-card">
+                    <h4>📍 Cabang Pontianak</h4>
+                    <p><strong>Alamat:</strong> Jl. Pak Kasih No.11, Mariana, Kec. Pontianak Kota, Kota Pontianak, Kalimantan Barat 78112</p>
+                    <p><strong>Telepon:</strong> 0811-1346-152</p>
+                    <p><strong>Email:</strong> bernard_yoe@tomang.ipeka.sch.id</p>
+                </div>
+                 
+            </div>
+        </div>
+    </section>
+    
+    <section id="profil" class="section">
+        <div class="section-title">Profil Perusahaan</div>
+        
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="color: #1e3c72; font-size: 2rem; font-style: italic; margin-bottom: 1rem;">
+                "Menghubungkan Nusantara, Menggerakan masa depan"
+            </h2>
+            <p style="font-size: 1.2rem; color: #666;">Slogan Kami</p>
+        </div>
+
+        <div class="profile-grid">
+            <div class="profile-card">
+                <h3>VISI</h3>
+                <p style="font-size: 1.1rem; text-align: justify;">
+                    Menjadi armada laut yang aman dan berkelas dalam memberikan pelayanan transportasi laut terbaik untuk seluruh masyarakat
+                </p>
+            </div>
+
+            <div class="profile-card">
+                <h3>MISI</h3>
+                <ul>
+                    <li>Memberikan layanan yang ramah dan profesional</li>
+                    <li>Menjaga keselamatan pelayaran melalui standar operasional dan perawatan kapal yang bagus</li>
+                    <li>Mendukung konektivitas antarwilayah untuk memperkuat pertumbuhan ekonomi dan mobilitas masyarakat</li>
+                    <li>Mengembangkan mengembangkan hub-hub regional sebagai pusat konektivitas baru diluar pulau Jawa</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="layanan" class="section">
+        <div class="section-title">Layanan Kami</div>
+
+        <h3 style="text-align: center; color: #1e3c72; font-size: 1.8rem; margin-bottom: 2rem; margin-top: 3rem;">Jenis Jasa Angkutan</h3>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="service-penumpang.png" alt="Angkutan Penumpang">
+                </div>
+                <div class="service-content">
+                    <h3>Angkutan Penumpang & Barang</h3>
+                    <p>Layanan transportasi penumpang antar pulau dengan kapal modern yang dilengkapi fasilitas AC, TV, kafetaria, dll. Dapat mengangkut barang bawaan penumpang.</p>
+                    <ul style="margin-top: 1rem;">
+                        <li>✓ Kursi nyaman dengan AC</li>
+                        <li>✓ Fasilitas toilet bersih</li>
+                        <li>✓ Layanan makanan & minuman</li>
+                        <li>✓ Bagasi barang penumpang</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="service-kargo.png" alt="Angkutan Kargo">
+                </div>
+                <div class="service-content">
+                    <h3>Angkutan Kargo Khusus</h3>
+                    <p>Jasa pengiriman barang dan kargo dengan kapal khusus logistik tanpa penumpang. Sistem tracking real-time untuk container dengan aman dan tepat waktu.</p>
+                    <ul style="margin-top: 1rem;">
+                        <li>✓ Sistem tracking online</li>
+                        <li>✓ Asuransi barang</li>
+                        <li>✓ Pengiriman terjadwal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="policy-section">
+            <h3 style="text-align: center; color: #1e3c72; font-size: 1.8rem; margin-bottom: 1rem;">📋 Kebijakan Pelayaran</h3>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem;">Harap dibaca dengan seksama sebelum melakukan pemesanan</p>
+            
+            <div class="policy-grid">
+                <div class="policy-card">
+                    <h4>Keterlambatan Kapal</h4>
+                    <ul>
+                        <li>Toleransi keterlambatan maksimal 2 jam dari jadwal</li>
+                        <li>Jika delay lebih dari 2 jam, penumpang berhak dapat kompensasi makanan</li>
+                        <li>Delay lebih dari 4 jam, penumpang dapat refund 50% atau reschedule gratis</li>
+                        <li>Keterlambatan karena cuaca buruk tidak dapat diklaim</li>
+                        <li>Info keterlambatan akan diinformasikan via SMS/WhatsApp</li>
+                    </ul>
+                </div>
+
+                <div class="policy-card">
+                    <h4>Pembatalan Tiket</h4>
+                    <ul>
+                        <li>Pembatalan H-7 atau lebih: Refund 90%</li>
+                        <li>Pembatalan H-3 s/d H-6: Refund 70%</li>
+                        <li>Pembatalan H-1 s/d H-2: Refund 50%</li>
+                        <li>Pembatalan H-0: Tidak dapat refund (dapat reschedule dengan biaya admin 20%)</li>
+                        <li>Pembatalan karena force majeure: Refund 100%</li>
+                    </ul>
+                </div>
+
+                <div class="policy-card">
+                    <h4>Perubahan Jadwal</h4>
+                    <ul>
+                        <li>Reschedule H-3 atau lebih: Gratis</li>
+                        <li>Reschedule H-1 s/d H-2: Biaya admin Rp 25.000</li>
+                        <li>Reschedule H-0: Biaya admin Rp 50.000</li>
+                        <li>Maksimal 1x reschedule gratis per tiket</li>
+                        <li>Perubahan nama penumpang dikenakan biaya Rp 15.000</li>
+                    </ul>
+                </div>
+
+                <div class="policy-card">
+                    <h4>Kebijakan Bagasi</h4>
+                    <ul>
+                        <li>Bagasi gratis: 20kg per penumpang</li>
+                        <li>Kelebihan bagasi: Rp 5.000/kg</li>
+                        <li>Barang berharga wajib dilaporkan dan diasuransikan</li>
+                        <li>Barang terlarang: senjata api, bahan peledak, narkoba</li>
+                        <li>Kehilangan bagasi: klaim maksimal Rp 1.000.000 dengan bukti</li>
+                    </ul>
+                </div>
+
+                <div class="policy-card">
+                    <h4>Kondisi Cuaca Buruk</h4>
+                    <ul>
+                        <li>Keberangkatan dapat ditunda demi keselamatan</li>
+                        <li>Penumpang dapat menunggu di ruang tunggu</li>
+                        <li>Jika dibatalkan karena cuaca: Refund 100% atau reschedule gratis</li>
+                        <li>Keputusan nahkoda adalah final</li>
+                        <li>Update kondisi via SMS/WhatsApp real-time</li>
+                    </ul>
+                </div>
+
+                <div class="policy-card">
+                    <h4>Syarat & Ketentuan</h4>
+                    <ul>
+                        <li>Check-in minimal 1 jam sebelum keberangkatan</li>
+                        <li>Wajib membawa KTP/identitas asli</li>
+                        <li>Anak di bawah 3 tahun gratis (tanpa kursi)</li>
+                        <li>Anak 3-12 tahun dapat diskon 50%</li>
+                        <li>Lansia & disabilitas prioritas boarding</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="text-align: center; color: #1e3c72; font-size: 1.8rem; margin: 4rem 0 2rem;">Fasilitas Armada Kami</h3>
+        
+        <div class="fleet-grid">
+            <div class="fleet-card">
+                <div class="fleet-image">
+                    <img src="fleet-1.png" alt="KM Segara Express I">
+                </div>
+                <div class="fleet-info">
+                    <h4>KM Segara Express I</h4>
+                    <p><strong>Jenis:</strong> Kapal Penumpang & Barang</p>
+                    <p><strong>Kapasitas:</strong> 370 penumpang + 60 unit kendaraan</p>
+                    <p><strong>Rute:</strong> Palembang - Pangkalpinang - Jakarta</p>
+                    <p><strong>Fasilitas:</strong> AC, Toilet, Mini Bar, Coffee corner, Wifi, Charging Port</p>
+                </div>
+            </div>
+
+            <div class="fleet-card">
+                <div class="fleet-image">
+                    <img src="fleet-2.png" alt="KM Segara Express II">
+                </div>
+                <div class="fleet-info">
+                    <h4>KM Segara Express II</h4>
+                    <p><strong>Jenis:</strong> Kapal Penumpang & Barang</p>
+                    <p><strong>Kapasitas:</strong> 377 penumpang + 24 unit kendaraan</p>
+                    <p><strong>Rute:</strong> Medan - Batam - Tanjung Pinang - Kijing</p>
+                    <p><strong>Fasilitas:</strong> AC, Toilet, Cafetaria, musholla, Charging Porti</p>
+                </div>
+            </div>
+
+            <div class="fleet-card">
+                <div class="fleet-image">
+                    <img src="fleet-3.png" alt="KM Segara Nusantara">
+                </div>
+                <div class="fleet-info">
+                    <h4>KM Segara Nusantara</h4>
+                    <p><strong>Jenis:</strong> Kapal Penumpang & Barang</p>
+                    <p><strong>Kapasitas:</strong> 1.528 penumpang + 300 kendaraan</p>
+                    <p><strong>Rute:</strong> Jakarta - Bangka - Belitung - Kijing - Pontianak</p>
+                    <p><strong>Fasilitas:</strong> AC, Toilet, Cafetaria, musholla, ruang bermain anak, escalator, dan smoking room.</p>
+                </div>
+            </div>
+
+            <div class="fleet-card">
+                <div class="fleet-image">
+                    <img src="fleet-4.png" alt="KM Segara Logistik">
+                </div>
+                <div class="fleet-info">
+                    <h4>KM Segara Logistik</h4>
+                    <p><strong>Jenis:</strong> Kapal Kargo Khusus (Tanpa Penumpang)</p>
+                    <p><strong>Kapasitas:</strong> 20.170 TEU</p>
+                    <p><strong>Rute:</strong> Jakarta - Palembang - Bangka - Medan - Batam - Kijing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="informasi" class="section">
+        <div class="section-title">Informasi Pelayaran</div>
+        <div class="booking-system">
+            <h3 style="color: #1e3c72; font-size: 1.8rem; margin-bottom: 1rem; text-align: center;">🎫 Pemesanan Tiket Online</h3>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem;">Pesan tiket Anda dengan mudah dan cepat</p>
+
+            <div class="booking-tabs">
+                <button class="booking-tab active" onclick="switchTab('penumpang')">Tiket Penumpang</button>
+                <button class="booking-tab" onclick="switchTab('kargo')">Tiket Kargo</button>
+            </div>
+
+            <form id="bookingFormPenumpang" class="booking-form">
+                <div class="form-field">
+                    <label for="pelabuhan-asal">Pelabuhan Asal</label>
+                    <select id="pelabuhan-asal" required>
+                        <option value="">Pilih Pelabuhan Asal</option>
+                        <option value="jakarta">Jakarta (Tanjung Priok)</option>
+                        <option value="palembang">Palembang</option>
+                        <option value="pangkalpinang">Pangkalpinang</option>
+                        <option value="batam">Batam</option>
+                        <option value="tanjungpinang">Tanjung Pinang</option>
+                        <option value="pontianak">Pontianak</option>
+                        <option value="sungailiat">Sungailiat</option>
+                        <option value="medan">Medan</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="pelabuhan-tujuan">Pelabuhan Tujuan</label>
+                    <select id="pelabuhan-tujuan" required>
+                        <option value="">Pilih Pelabuhan Tujuan</option>
+                        <option value="jakarta">Jakarta (Tanjung Priok)</option>
+                        <option value="palembang">Palembang</option>
+                        <option value="pangkalpinang">Pangkalpinang</option>
+                        <option value="batam">Batam</option>
+                        <option value="tanjungpinang">Tanjung Pinang</option>
+                        <option value="pontianak">Pontianak</option>
+                        <option value="sungailiat">Sungailiat</option>
+                        <option value="medan">Medan</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="tanggal-berangkat">Tanggal Keberangkatan</label>
+                    <input type="date" id="tanggal-berangkat" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="jumlah-penumpang">Jumlah Penumpang (Dewasa)</label>
+                    <select id="jumlah-penumpang" required>
+                        <option value="1">1 Penumpang</option>
+                        <option value="2">2 Penumpang</option>
+                        <option value="3">3 Penumpang</option>
+                        <option value="4">4 Penumpang</option>
+                        <option value="5">5 Penumpang</option>
+                        <option value="6">6+ Penumpang</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="jumlah-bayi">Jumlah Bayi (0-23 Bulan)</label>
+                    <select id="jumlah-bayi" required>
+                        <option value="0">0 Bayi</option>
+                        <option value="1">1 Bayi</option>
+                        <option value="2">2 Bayi</option>
+                        <option value="3">3 Bayi</option>
+                    </select>
+                </div>
+            </form>
+
+            <form id="bookingFormKargo" class="booking-form" style="display: none;">
+                <div class="form-field">
+                    <label for="kargo-asal">Pelabuhan Asal</label>
+                    <select id="kargo-asal" required>
+                        <option value="">Pilih Pelabuhan Asal</option>
+                        <option value="jakarta">Jakarta (Tanjung Priok)</option>
+                        <option value="palembang">Palembang</option>
+                        <option value="pangkalpinang">Pangkalpinang</option>
+                        <option value="batam">Batam</option>
+                        <option value="pontianak">Pontianak</option>
+                        <option value="medan">Medan</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="kargo-tujuan">Pelabuhan Tujuan</label>
+                    <select id="kargo-tujuan" required>
+                        <option value="">Pilih Pelabuhan Tujuan</option>
+                        <option value="jakarta">Jakarta (Tanjung Priok)</option>
+                        <option value="palembang">Palembang</option>
+                        <option value="pangkalpinang">Pangkalpinang</option>
+                        <option value="batam">Batam</option>
+                        <option value="pontianak">Pontianak</option>
+                        <option value="medan">Medan</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="kargo-tanggal">Tanggal Pengiriman</label>
+                    <input type="date" id="kargo-tanggal" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="jumlah-container">Jumlah Container</label>
+                    <select id="jumlah-container" required>
+                        <option value="">Pilih Jumlah Container</option>
+                        <option value="1">1 Container</option>
+                        <option value="2">2 Container</option>
+                        <option value="3">3 Container</option>
+                        <option value="4">4 Container</option>
+                        <option value="5">5+ Container</option>
+                    </select>
+                </div>
+            </form>
+
+            <button type="submit" class="search-button" onclick="searchSchedule()">
+                🔍 Cari Jadwal & Harga
+            </button>
+        </div>
+
+        <div id="searchResults" class="search-results">
+        </div>
+        
+        <h3 style="text-align: center; color: #1e3c72; font-size: 1.8rem; margin-bottom: 2rem; margin-top: 3rem;">Rute Pelayaran Kami</h3>
+        <div>
+          <iframe src="https://www.google.com/maps/d/embed?mid=12kgZyY61fD42MVXKgW4SCplXsxjgcJA&ehbc=2E312F" width="1340" height="480"></iframe>
+        </div>
+        <div>
+          <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1K98gBOKzFx0B-7jC1uEn39NLu5XuUlw&ehbc=2E312F" width="1340" height="480"></iframe>
+        </div>
+        <div>
+          <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1wKXo2mtLJpeYOGMqBnCEvU1sJ3qhRZ4&ehbc=2E312F" width="1340" height="480"></iframe>
+        </div>
+        <div>
+          <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1KFYCZ5S5wLA0zilZLrBhDbjykEk76sc&ehbc=2E312F" width="1340" height="480"></iframe>
+        </div>
+        <div>
+          <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vStxAuvRF-CO7xx9UP6xJZuVVQbUmNN0NU9U6GFrIpDwt_0edKrH5Tqy0K283XGgP6A57HKNKYhaZgc/pubhtml?widget=true&amp;headers=false" width="1340" height="1000"></iframe>
+        </div>
+        
+        <div style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+            <h3 style="color: #1e3c72; margin-bottom: 1.5rem; text-align: center;">📋 Cara Pemesanan Tiket</h3>
+            <div class="booking-methods">
+                <div class="booking-method">
+                    <div class="booking-icon">
+                        <img src="booking-online.png" alt="Pemesanan Online">
+                    </div>
+                    <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Online</h4>
+                    <p>Pesan melalui website  kami</p>
+                </div>
+                <div class="booking-method">
+                    <div class="booking-icon">
+                        <img src="booking-phone.png" alt="Pemesanan Telepon">
+                    </div>
+                    <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Telepon</h4>
+                    <p>Hubungi call center kami di 08111346152</p>
+                </div>
+                <div class="booking-method">
+                    <div class="booking-icon">
+                        <img src="booking-office.png" alt="Kantor Cabang">
+                    </div>
+                    <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Kantor Cabang</h4>
+                    <p>Kunjungi kantor cabang terdekat</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontak" class="section">
+        <div class="section-title">Hubungi Kami</div>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3 style="color: #1e3c72; font-size: 1.8rem; margin-bottom: 2rem;">Informasi Kontak</h3>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">🏢</div>
+                    <div>
+                        <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Kantor Pusat</h4>
+                        <p>Jl. Pelabuhan Raya No. 123<br>Tanjung Priok, Jakarta Utara 14310</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div>
+                        <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Telepon</h4>
+                        <p>WhatsApp: 08111346152</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div>
+                        <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Email</h4>
+                        <p>bernard_yoe@tomang.ipeka.sch.id</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">⏰</div>
+                    <div>
+                        <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Jam Operasional</h4>
+                        <p>Senin - Jumat: 08:00 - 17:00 WIB<br>Sabtu: 08:00 - 14:00 WIB<br>Minggu: Tutup</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">🌐</div>
+                    <div>
+                        <h4 style="color: #1e3c72; margin-bottom: 0.5rem;">Media Sosial</h4>
+                        <p>Instagram: @segarautama<br>Facebook: PT Segara Utama<br>Twitter: @segarautama</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3 style="color: #1e3c72; margin-bottom: 1.5rem;">Kirim Pesan</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="contactName" name="name" required placeholder="Masukkan nama lengkap Anda">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="contactEmail" name="email" required placeholder="Masukkan email Anda">
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor Telepon</label>
+                        <input type="tel" id="contactPhone" name="phone" required placeholder="Masukkan nomor telepon Anda">
+                    </div>
+                    <div class="form-group">
+                        <label>Subjek</label>
+                        <input type="text" id="contactSubject" name="subject" required placeholder="Subjek pesan">
+                    </div>
+                    <div class="form-group">
+                        <label>Pesan</label>
+                        <textarea id="contactMessage" name="message" rows="5" required placeholder="Tulis pesan Anda di sini..."></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%;">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- === TAMBAHAN: Admin Panel Section === -->
+    <section id="admin" class="section">
+        <div class="section-title">🔐 Admin Panel - Manajemen Jadwal</div>
+        
+        <div style="background: #d1ecf1; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #17a2b8;">
+            <strong>ℹ️ Selamat datang Admin!</strong> Halaman ini khusus untuk mengelola jadwal pelayaran. Semua perubahan akan langsung mempengaruhi sistem pemesanan.
+        </div>
+
+        <div class="booking-system">
+            <h3 style="color: #1e3c72; font-size: 1.8rem; margin-bottom: 1rem;">➕ Tambah Jadwal Baru</h3>
+            
+            <div class="booking-form" style="margin-top: 2rem;">
+                <div class="form-field">
+                    <label for="admin-asal">Pelabuhan Asal *</label>
+                    <select id="admin-asal" required>
+                        <option value="">Pilih Pelabuhan</option>
+                        <option value="jakarta">Jakarta</option>
+                        <option value="palembang">Palembang</option>
+                        <option value="pangkalpinang">Pangkalpinang</option>
+                        <option value="batam">Batam</option>
+                        <option value="medan">Medan</option>
+                        <option value="pontianak">Pontianak</option>
+                        <option value="tanjungpinang">Tanjung Pinang</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="admin-tujuan">Pelabuhan Tujuan *</label>
+                    <select id="admin-tujuan" required>
+                        <option value="">Pilih Pelabuhan</option>
+                        <option value="jakarta">Jakarta</option>
+                        <option value="palembang">Palembang</option>
+                        <option value="pangkalpinang">Pangkalpinang</option>
+                        <option value="batam">Batam</option>
+                        <option value="medan">Medan</option>
+                        <option value="pontianak">Pontianak</option>
+                        <option value="tanjungpinang">Tanjung Pinang</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="admin-ship">Nama Kapal *</label>
+                    <select id="admin-ship" required>
+                        <option value="">Pilih Kapal</option>
+                        <option value="KM Segara Express 1">KM Segara Express 1</option>
+                        <option value="KM Segara Express 2">KM Segara Express 2</option>
+                        <option value="KM Segara Nusantara">KM Segara Nusantara</option>
+                        <option value="KM Segara Logistik">KM Segara Logistik</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="admin-price">Harga (Rp) *</label>
+                    <input type="number" id="admin-price" required placeholder="150000" min="0">
+                </div>
+
+                <div class="form-field">
+                    <label for="admin-duration">Durasi (Jam) *</label>
+                    <input type="number" id="admin-duration" required placeholder="35" min="1">
+                </div>
+
+                <div class="form-field">
+                    <label for="admin-type">Tipe Rute *</label>
+                    <select id="admin-type" required>
+                        <option value="penumpang">Penumpang</option>
+                        <option value="kargo">Kargo</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="button" class="search-button" onclick="addSchedule()">
+                ➕ Tambah Jadwal
+            </button>
+        </div>
+
+        <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin-top: 3rem;">
+            <h3 style="color: #1e3c72; margin-bottom: 1.5rem;">📋 Daftar Jadwal Tersimpan</h3>
+            <div id="scheduleList" class="schedule-list"></div>
+        </div>
+    </section>
+
+    <!-- === TAMBAHAN: Auth Modal (Login/Register) === -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔐 Login / Register</h2>
+                <button class="close-modal" onclick="closeAuthModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchAuthTab('login')">Masuk</button>
+                    <button class="auth-tab" onclick="switchAuthTab('register')">Daftar</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" required placeholder="Masukkan email Anda">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" required placeholder="Masukkan password Anda">
+                    </div>
+                    <button type="submit" class="submit-btn">Masuk</button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="registerName" required placeholder="Masukkan nama lengkap">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="registerEmail" required placeholder="Masukkan email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="registerPassword" required minlength="6" placeholder="Minimal 6 karakter">
+                    </div>
+                    <div class="form-group">
+                        <label>Konfirmasi Password</label>
+                        <input type="password" id="registerPasswordConfirm" required minlength="6" placeholder="Ketik ulang password">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipe Akun</label>
+                        <select id="registerRole" onchange="toggleAdminCode()">
+                            <option value="user">Pengguna Biasa</option>
+                            <option value="admin">Admin (Kode diperlukan)</option>
+                        </select>
+                    </div>
+                    <div class="form-group admin-code-field" id="adminCodeField">
+                        <label>Kode Admin</label>
+                        <input type="text" id="adminCode" placeholder="Masukkan kode admin">
+                        <small style="color: #666; margin-top: 0.5rem; display: block;">Kode: SEGARA2025</small>
+                    </div>
+                    <button type="submit" class="submit-btn">Daftar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- === TAMBAHAN: Booking Modal === -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📝 Lengkapi Data Pemesanan</h2>
+                <button class="close-modal" onclick="closeBookingModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body" id="bookingModalBody">
+                <!-- Akan diisi secara dinamis -->
+            </div>
+        </div>
+    </div>
+
+    <!-- === TAMBAHAN: Success Modal === -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-modal">
+                <div class="success-icon">✓</div>
+                <h2 style="color: #28a745; margin-bottom: 1rem;">Pemesanan Berhasil!</h2>
+                <p style="color: #666; margin-bottom: 1rem;">Tiket Anda telah berhasil dipesan</p>
+                <div class="booking-code" id="bookingCodeDisplay"></div>
+                <div class="alert alert-info" style="text-align: left; margin-top: 1.5rem;">
+                    <strong>📧 Informasi Penting:</strong><br>
+                    • Konfirmasi pemesanan akan dikirim ke email Anda<br>
+                    • Simpan kode booking untuk check-in<br>
+                    • Harap datang minimal 1 jam sebelum keberangkatan<br>
+                    • Bawa KTP/identitas asli saat check-in
+                </div>
+                <button class="submit-btn" onclick="closeSuccessModal()" style="margin-top: 2rem;">
+                    Selesai
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>PT Segara Utama</h3>
+                <p>Perusahaan pelayaran terpercaya sejak 2025, menghubungkan pulau-pulau di Indonesia dengan layanan berkualitas tinggi.</p>
+                <p style="margin-top: 1rem;">🏆 Certified Investasi Bodong!</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Kontak Cepat</h3>
+                <p>📞 Call Center: 08111346152</p>
+                <p>📧 bernard_yoe@tomang.ipeka.sch.id</p>
+                <p>🏢 Jl. Yos Sudarso No.30, RT.10/RW.6, Sungai Bambu, Kec. Tj. Priok, Jkt Utara, Daerah Khusus Ibukota Jakarta 14360</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Layanan</h3>
+                <a onclick="showSection('layanan')">Angkutan Penumpang</a>
+                <a onclick="showSection('layanan')">Angkutan Kargo</a>
+                <a onclick="showSection('layanan')">Angkutan Kendaraan</a>
+                <a onclick="showSection('informasi')">Jadwal Keberangkatan</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Tautan Penting</h3>
+                <a onclick="showSection('beranda')">Tentang Kami</a>
+                <a onclick="showSection('profil')">Visi & Misi</a>
+                <a onclick="showSection('informasi')">Cara Pemesanan</a>
+                <a onclick="showSection('kontak')">Hubungi Kami</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 PT Segara Utama. All Rights Reserved. | Designed with care for Indonesia</p>
+        </div>
+    </footer>
+
+    <!-- === LINK KE FILE JAVASCRIPT TERPISAH === -->
+    <script src="app.js"></script>
+</body>
+</html>
