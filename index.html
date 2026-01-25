@@ -1408,70 +1408,263 @@
                 transform: scale(1);
             }
         }
+        /* ============================================
+           TAMBAHAN: FIX User Menu & Navigation Layout
+           ============================================ */
+        
+        /* Fix Navigation Layout */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0.8rem 1.5rem;
+        }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem; /* Kurangi gap agar muat */
+            flex-wrap: nowrap; /* Jangan wrap ke baris baru */
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 0.8rem; /* Kurangi gap antar menu */
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            flex-wrap: nowrap; /* Paksa tetap 1 baris */
+        }
+
+        nav ul li {
+            white-space: nowrap; /* Cegah text wrap */
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0.7rem; /* Kurangi padding kiri-kanan */
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            white-space: nowrap; /* Paksa text 1 baris */
+            font-size: 0.9rem; /* Sedikit perkecil font */
+        }
+
+        nav ul li a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        nav ul li a.active {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .admin-link {
+            background: #ffd700 !important;
+            color: #1e3c72 !important;
+            font-weight: bold;
+            padding: 0.5rem 1rem !important;
+            white-space: nowrap !important;
+        }
+
+        .admin-link:hover {
+            background: #ffed4e !important;
+            transform: translateY(-2px);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: 1rem; /* Kurangi margin */
+            flex-shrink: 0; /* Jangan shrink */
+        }
+
+        .login-btn {
+            background: #ffd700;
+            color: #1e3c72;
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .login-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.4);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.35rem 0.9rem 0.35rem 0.35rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #ffd700;
+            color: #1e3c72;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+        }
+
+        .user-role {
+            font-size: 0.72rem;
+            opacity: 0.85;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .admin-badge {
+            background: #ffd700;
+            color: #1e3c72;
+            padding: 0.12rem 0.45rem;
+            border-radius: 10px;
+            font-size: 0.68rem;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 0.45rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: white;
+        }
+
+        /* Responsive - untuk layar lebih kecil */
+        @media (max-width: 1400px) {
+            nav ul {
+                gap: 0.7rem;
+            }
+            
+            nav ul li a {
+                padding: 0.5rem 0.7rem;
+                font-size: 0.9rem;
+            }
+            
+            .user-menu {
+                margin-left: 0.8rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            nav ul {
+                gap: 0.5rem;
+            }
+            
+            nav ul li a {
+                padding: 0.5rem 0.6rem;
+                font-size: 0.85rem;
+            }
+            
+            .nav-right {
+                gap: 1rem;
+            }
+        }
+        
         @media (max-width: 768px) {
             nav {
                 flex-direction: column;
                 gap: 1rem;
             }
-
-            nav ul {
+            
+            .nav-right {
                 flex-direction: column;
-                gap: 0.5rem;
-                text-align: center;
+                width: 100%;
             }
-
-            .hero-content h1 {
-                font-size: 2rem;
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
             }
-
-            .hero-content p {
-                font-size: 1.2rem;
-            }
-
-            .about-content,
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .services-grid,
-            .fleet-grid {
-                grid-template-columns: 1fr;
+            
+            .user-menu {
+                margin-left: 0;
+                width: 100%;
+                justify-content: center;
             }
         }
-    </style>
-</head>
-<body>
-    <!-- Navigation -->
+        </style>
+    </head>
+        <body>
     <header>
-    <nav>
-        <div class="logo">
-            <div class="logo-icon">
-                <img src="logo.png" alt="Logo PT Segara Utama">
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="logo.png" alt="Logo PT Segara Utama">
+                </div>
+                <span>PT Segara Utama</span>
             </div>
-            <span>PT Segara Utama</span>
-        </div>
-        
-        <div class="nav-right">
-            <ul id="mainNav">
-                <li><a onclick="showSection('beranda')" class="active">Beranda</a></li>
-                <li><a onclick="showSection('profil')">Profil</a></li>
-                <li><a onclick="showSection('layanan')">Layanan</a></li>
-                <li><a onclick="showSection('informasi')">Informasi Pelayaran</a></li>
-                <li><a onclick="showSection('kontak')">Kontak</a></li>
-                <!-- Admin Link (hanya muncul untuk admin) -->
-                <li id="adminNavLink" style="display: none;">
-                    <a onclick="showSection('admin')" class="admin-link">🔐 Admin</a>
-                </li>
-            </ul>
             
-            <!-- User Menu -->
-            <div class="user-menu" id="userMenu">
-                <button class="login-btn" onclick="showAuthModal()">Login / Register</button>
+            <div class="nav-right">
+                <ul id="mainNav">
+                    <li><a onclick="showSection('beranda')" class="active">Beranda</a></li>
+                    <li><a onclick="showSection('profil')">Profil</a></li>
+                    <li><a onclick="showSection('layanan')">Layanan</a></li>
+                    <li><a onclick="showSection('informasi')">Informasi Pelayaran</a></li>
+                    <li><a onclick="showSection('kontak')">Kontak</a></li>
+                    <li id="adminNavLink" style="display: none;">
+                        <a onclick="showSection('admin')" class="admin-link">🔐 Admin</a>
+                    </li>
+                </ul>
+                
+                <div class="user-menu" id="userMenu">
+                    <button class="login-btn" onclick="showAuthModal()">Login / Register</button>
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
 
     <section id="beranda" class="section active">
         <div class="hero">
