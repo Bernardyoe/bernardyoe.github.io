@@ -1606,7 +1606,17 @@
             }
             
             .nav-right {
-                gap: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-40%); /* Ubah dari -50% jadi -40% */
+                pointer-events: none; /* Biar tidak blocking */
+            }
+
+            .nav-right > * {
+                pointer-events: auto; /* Aktifkan kembali click untuk children */
             }
         }
         
