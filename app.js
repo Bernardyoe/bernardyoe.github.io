@@ -1109,6 +1109,14 @@ function addSchedule() {
     const price = parseInt(document.getElementById('admin-price').value);
     const duration = parseInt(document.getElementById('admin-duration').value);
     const type = document.getElementById('admin-type').value;
+    const date = document.getElementById('admin-date').value;
+    const time = document.getElementById('admin-time').value;
+    
+    // Validasi tambahan
+    if (!date || !time) {
+        alert('⚠️ Tanggal dan jam keberangkatan harus diisi!');
+        return;
+    }
     
     // Validasi
     if (!asal || !tujuan || !ship || !price || !duration) {
@@ -1130,6 +1138,8 @@ function addSchedule() {
         price: price,
         duration: duration,
         type: type,
+        date: date,              // TAMBAHAN
+        time: time,              // TAMBAHAN
         createdBy: currentUser.id,
         createdAt: new Date().toISOString()
     };
@@ -1139,7 +1149,7 @@ function addSchedule() {
     
     // Cek apakah sedang edit (jika ada ID yang sama, replace)
     const existingIndex = schedules.findIndex(s => 
-        s.asal === asal && s.tujuan === tujuan && s.type === type
+        s.asal === asal && s.tujuan === tujuan && s.type === type && s.date === date
     );
     
     if (existingIndex >= 0) {
