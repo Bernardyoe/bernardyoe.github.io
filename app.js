@@ -927,16 +927,132 @@ function submitBooking(event) {
     bookings.push(bookingData);
     localStorage.setItem('bookings', JSON.stringify(bookings));
     
-    // Tutup booking modal
+    lastBookingData = bookingData;
     closeBookingModal();
     
-    // Kirim email
-    sendBookingEmail(bookingData);
+    sendBookingWhatsApp(bookingData);
     
-    // Tampilkan success modal
     showSuccessModal(bookingCode);
 }
 
+function sendBookingWhatsApp(bookingData) {
+    const isPenumpang = bookingData.type === 'penumpang';
+    
+    // Format pesan WhatsApp
+    let message = `🎫 *KONFIRMASI PEMESANAN TIKET*
+*PT SEGARA UTAMA*
+
+========================================
+*KODE BOOKING:* ${bookingData.bookingCode}
+========================================
+
+📋 *DETAIL PERJALANAN*
+- Jenis: ${isPenumpang ? 'Penumpang' : 'Kargo'}
+- Rute: *${ports[bookingData.asal].short.toUpperCase()}* → *${ports[bookingData.tujuan].short.toUpperCase()}*
+- Tanggal: ${new Date(bookingData.tanggal).toLocaleDateString('id-ID', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'})}
+- Kapal: ${bookingData.ship}
+- Keberangkatan: ${bookingData.departTime}
+- Estimasi Tiba: ${bookingData.arriveTime}
+- Durasi: ${bookingData.duration}
+
+`;
+
+    if (isPenumpang) {
+        message += `👤 *DATA PENUMPANG*
+- Nama: ${bookingData.passengerName}
+- No. KTP: ${bookingData.passengerID}
+- Telepon: ${bookingData.passengerPhone}
+- Email: ${bookingData.passengerEmail}
+
+👥 *JUMLAH PENUMPANG*
+- Dewasa: ${bookingData.adultCount} orang
+- Anak (3-12 thn): ${bookingData.childCount} orang
+- Bayi (0-3 thn): ${bookingData.babyCount} orang
+
+`;
+    } else {
+        message += `📤 *DATA PENGIRIM*
+- Nama: ${bookingData.senderName}
+- Telepon: ${bookingData.senderPhone}
+- Email: ${bookingData.senderEmail}
+- Alamat: ${bookingData.senderAddress}
+
+📥 *DATA PENERIMA*
+- Nama: ${bookingData.receiverName}
+- Telepon: ${bookingData.receiverPhone}
+- Alamat: ${bookingData.receiverAddress}
+
+📦 *DETAIL KARGO*
+- Jenis Barang: ${bookingData.cargoType}
+- Jumlah Container: ${bookingData.containerCount}
+- Berat Estimasi: ${bookingData.cargoWeight} Ton
+
+`;
+    }
+
+    message += `💰 *INFORMASI PEMBAYARAN*
+- Harga: Rp ${bookingData.basePrice.toLocaleString('id-ID')}
+- *Total Pembayaran: Rp ${bookingData.totalPrice.toLocaleString('id-ID')}*
+
+🏦 *Transfer ke:*
+- BCA: 1234567890 a.n. PT Segara Utama
+- Mandiri: 0987654321 a.n. PT Segara Utama
+
+========================================
+⚠️ *INSTRUKSI PENTING*
+========================================
+1. Simpan kode booking: *${bookingData.bookingCode}*
+2. ${isPenumpang ? 'Datang minimal 1 jam sebelum keberangkatan' : 'Barang tiba di pelabuhan H-1'}
+3. ${isPenumpang ? 'Bawa KTP/identitas asli saat check-in' : 'Sertakan dokumen lengkap'}
+4. ${isPenumpang ? 'Bagasi gratis 20kg per penumpang' : 'Pastikan barang dikemas aman'}
+5. Konfirmasi pembayaran ke nomor ini
+
+📞 *Call Center: 08111346152*
+📧 *Email: bernard_yoe@tomang.ipeka.sch.id*
+
+Terima kasih telah memilih PT Segara Utama! ⚓
+_Selamat Berlayar!_`;
+
+    // Encode message untuk URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Ambil nomor telepon customer
+    const customerPhone = isPenumpang ? bookingData.passengerPhone : bookingData.senderPhone;
+    
+    // Format nomor ke format internasional (hapus 0 di depan, tambah 62)
+    let formattedPhone = customerPhone.replace(/\D/g, ''); // Hapus semua karakter non-digit
+    if (formattedPhone.startsWith('0')) {
+        formattedPhone = '62' + formattedPhone.substring(1);
+    } else if (!formattedPhone.startsWith('62')) {
+        formattedPhone = '62' + formattedPhone;
+    }
+    
+    // Buat WhatsApp link
+    const whatsappLink = `https://wa.me/${formattedPhone}?text=${encodedMessage}`;
+    
+    // Buka WhatsApp di tab baru
+    window.open(whatsappLink, '_blank');
+    
+    // Notifikasi
+    setTimeout(() => {
+        alert('✅ WhatsApp telah dibuka!\n\n📱 Silakan klik tombol KIRIM di WhatsApp untuk mengirim konfirmasi booking ke pelanggan.\n\n💡 Simpan chat ini sebagai bukti pemesanan.');
+    }, 1000);
+}
+// Global variable untuk menyimpan booking data terakhir
+let lastBookingData = null;
+
+// Update fungsi submitBooking untuk simpan data
+// TAMBAHKAN di dalam fungsi submitBooking(), setelah bookingData dibuat:
+// lastBookingData = bookingData;
+
+// Fungsi untuk kirim ulang WhatsApp
+function resendWhatsApp() {
+    if (lastBookingData) {
+        sendBookingWhatsApp(lastBookingData);
+    } else {
+        alert('⚠️ Data booking tidak ditemukan. Silakan reload halaman dan coba lagi.');
+    }
+}
 // Send Booking Email
 function sendBookingEmail(bookingData) {
     const isPenumpang = bookingData.type === 'penumpang';

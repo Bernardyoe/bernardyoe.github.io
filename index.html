@@ -2558,25 +2558,29 @@
 
     <!-- === TAMBAHAN: Success Modal === -->
     <div id="successModal" class="modal">
-        <div class="modal-content">
-            <div class="success-modal">
-                <div class="success-icon">✓</div>
-                <h2 style="color: #28a745; margin-bottom: 1rem;">Pemesanan Berhasil!</h2>
-                <p style="color: #666; margin-bottom: 1rem;">Tiket Anda telah berhasil dipesan</p>
-                <div class="booking-code" id="bookingCodeDisplay"></div>
-                <div class="alert alert-info" style="text-align: left; margin-top: 1.5rem;">
-                    <strong>📧 Informasi Penting:</strong><br>
-                    • Konfirmasi pemesanan akan dikirim ke email Anda<br>
-                    • Simpan kode booking untuk check-in<br>
-                    • Harap datang minimal 1 jam sebelum keberangkatan<br>
-                    • Bawa KTP/identitas asli saat check-in
+    <div class="modal-content">
+        <div class="success-modal">
+            <div class="success-icon">✓</div>
+            <h2 style="color: #28a745; margin-bottom: 1rem;">Pemesanan Berhasil!</h2>
+            <p style="color: #666; margin-bottom: 1rem;">Tiket Anda telah berhasil dipesan</p>
+            <div class="booking-code" id="bookingCodeDisplay"></div>
+            <div class="alert alert-info" style="text-align: left; margin-top: 1.5rem;">
+                <strong>📱 Informasi Penting:</strong><br>
+                • WhatsApp telah dibuka untuk mengirim konfirmasi<br>
+                • Silakan klik tombol KIRIM di WhatsApp<br>
+                • Simpan kode booking untuk check-in<br>
+                • Harap datang minimal 1 jam sebelum keberangkatan<br>
+                • Bawa KTP/identitas asli saat check-in
                 </div>
-                <button class="submit-btn" onclick="closeSuccessModal()" style="margin-top: 2rem;">
+                <button class="submit-btn" onclick="resendWhatsApp()" style="margin-top: 1.5rem; background: #25D366;">
+                    📱 Kirim Ulang WhatsApp
+                </button>
+                <button class="submit-btn" onclick="closeSuccessModal()" style="margin-top: 1rem; background: #6c757d;">
                     Selesai
                 </button>
             </div>
         </div>
-    </div>
+    </div> 
 
     <footer>
         <div class="footer-content">
