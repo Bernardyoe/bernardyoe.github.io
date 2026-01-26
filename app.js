@@ -300,10 +300,41 @@ const transitRoutes = {
 // Generate schedules berdasarkan rute dan tanggal
 function generateSchedules(route, type, selectedDate) {
     const key = type === 'kargo' ? `${route}-cargo` : route;
-    const routeInfo = directRoutes[key];
     
-    // Cek juga di admin schedules
+    // Cek di admin schedules berdasarkan tanggal
     const adminSchedules = JSON.parse(localStorage.getItem('adminSchedules')) || [];
+    const matchingAdminSchedules = adminSchedules.filter(s => {
+        const scheduleKey = `${s.asal}-${s.tujuan}`;
+        const reverseKey = `${s.tujuan}-${s.asal}`;
+        return (scheduleKey === route || reverseKey === route) && 
+               s.type === type && 
+               s.date === selectedDate;
+    });
+    
+    if (matchingAdminSchedules.length > 0) {
+        // Return admin schedules yang sesuai tanggal
+        return matchingAdminSchedules.map(schedule => {
+            const departDateTime = new Date(`${schedule.date}T${schedule.time}`);
+            const arriveDateTime = new Date(departDateTime);
+            arriveDateTime.setHours(arriveDateTime.getHours() + schedule.duration);
+            
+            return {
+                id: schedule.id,
+                ship: schedule.ship,
+                departDate: departDateTime.toLocaleDateString('id-ID', { year: '2-digit', month: '2-digit', day: '2-digit' }),
+                departTime: schedule.time,
+                arriveDate: arriveDateTime.toLocaleDateString('id-ID', { year: '2-digit', month: '2-digit', day: '2-digit' }),
+                arriveTime: String(arriveDateTime.getHours()).padStart(2, '0') + ':' + String(arriveDateTime.getMinutes()).padStart(2, '0'),
+                duration: `${schedule.duration} jam`,
+                price: 'Rp ' + schedule.price.toLocaleString('id-ID'),
+                rawPrice: schedule.price,
+                type: 'direct'
+            };
+        });
+    }
+    
+    // Fallback ke directRoutes (data default)
+    const routeInfo = directRoutes[key];
     const adminRoute = adminSchedules.find(s => {
         const scheduleKey = type === 'kargo' ? `${s.asal}-${s.tujuan}-cargo` : `${s.asal}-${s.tujuan}`;
         return scheduleKey === key && s.type === type;
@@ -1083,6 +1114,14 @@ function loadAdminSchedules() {
                         <strong style="color: #1e3c72;">Tipe:</strong><br>
                         ${badge}
                     </div>
+                    <div>
+                        <strong style="color: #1e3c72;">Tanggal:</strong><br>
+                        ${new Date(schedule.date).toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'})}
+                    </div>
+                    <div>
+                        <strong style="color: #1e3c72;">Jam:</strong><br>
+                        ${schedule.time}
+                    </div>
                 </div>
                 <div class="schedule-actions">
                     <button class="edit-btn" onclick="editSchedule(${index})">✏️ Edit</button>
@@ -1175,6 +1214,8 @@ function addSchedule() {
     document.getElementById('admin-price').value = '';
     document.getElementById('admin-duration').value = '';
     document.getElementById('admin-type').value = 'penumpang';
+    document.getElementById('admin-date').value = '';
+    document.getElementById('admin-time').value = '08:00';
 }
 
 // Edit Schedule
@@ -1191,6 +1232,8 @@ function editSchedule(index) {
     document.getElementById('admin-price').value = schedule.price;
     document.getElementById('admin-duration').value = schedule.duration;
     document.getElementById('admin-type').value = schedule.type;
+    document.getElementById('admin-date').value = schedule.date;
+    document.getElementById('admin-time').value = schedule.time;
     
     // Scroll ke form
     document.getElementById('admin-asal').scrollIntoView({ behavior: 'smooth', block: 'center' });
