@@ -1010,7 +1010,7 @@ function sendBookingWhatsApp(bookingData) {
 *Call Center: 08111346152*
 *Email: bernard_yoe@tomang.ipeka.sch.id*
 
-Terima kasih telah memilih PT Segara Utama! ⚓
+Terima kasih telah memilih PT Segara Utama!
 _Selamat Berlayar!_`;
 
     // Encode message untuk URL
