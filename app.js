@@ -946,7 +946,7 @@ function sendBookingWhatsApp(bookingData) {
 *KODE BOOKING:* ${bookingData.bookingCode}
 ========================================
 
-📋 *DETAIL PERJALANAN*
+== *DETAIL PERJALANAN* ==
 - Jenis: ${isPenumpang ? 'Penumpang' : 'Kargo'}
 - Rute: *${ports[bookingData.asal].short.toUpperCase()}* → *${ports[bookingData.tujuan].short.toUpperCase()}*
 - Tanggal: ${new Date(bookingData.tanggal).toLocaleDateString('id-ID', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'})}
@@ -958,31 +958,31 @@ function sendBookingWhatsApp(bookingData) {
 `;
 
     if (isPenumpang) {
-        message += `👤 *DATA PENUMPANG*
+        message += `== *DATA PENUMPANG* ==
 - Nama: ${bookingData.passengerName}
 - No. KTP: ${bookingData.passengerID}
 - Telepon: ${bookingData.passengerPhone}
 - Email: ${bookingData.passengerEmail}
 
-👥 *JUMLAH PENUMPANG*
+== *JUMLAH PENUMPANG* ==
 - Dewasa: ${bookingData.adultCount} orang
 - Anak (3-12 thn): ${bookingData.childCount} orang
 - Bayi (0-3 thn): ${bookingData.babyCount} orang
 
 `;
     } else {
-        message += `📤 *DATA PENGIRIM*
+        message += `== *DATA PENGIRIM* ==
 - Nama: ${bookingData.senderName}
 - Telepon: ${bookingData.senderPhone}
 - Email: ${bookingData.senderEmail}
 - Alamat: ${bookingData.senderAddress}
 
-📥 *DATA PENERIMA*
+== *DATA PENERIMA* ==
 - Nama: ${bookingData.receiverName}
 - Telepon: ${bookingData.receiverPhone}
 - Alamat: ${bookingData.receiverAddress}
 
-📦 *DETAIL KARGO*
+== *DETAIL KARGO* ==
 - Jenis Barang: ${bookingData.cargoType}
 - Jumlah Container: ${bookingData.containerCount}
 - Berat Estimasi: ${bookingData.cargoWeight} Ton
@@ -990,16 +990,16 @@ function sendBookingWhatsApp(bookingData) {
 `;
     }
 
-    message += `💰 *INFORMASI PEMBAYARAN*
+    message += `== *INFORMASI PEMBAYARAN* ==
 - Harga: Rp ${bookingData.basePrice.toLocaleString('id-ID')}
 - *Total Pembayaran: Rp ${bookingData.totalPrice.toLocaleString('id-ID')}*
 
-🏦 *Transfer ke:*
+== *Transfer ke:* ==
 - BCA: 1234567890 a.n. PT Segara Utama
 - Mandiri: 0987654321 a.n. PT Segara Utama
 
 ========================================
-⚠️ *INSTRUKSI PENTING*
+!! *INSTRUKSI PENTING*
 ========================================
 1. Simpan kode booking: *${bookingData.bookingCode}*
 2. ${isPenumpang ? 'Datang minimal 1 jam sebelum keberangkatan' : 'Barang tiba di pelabuhan H-1'}
