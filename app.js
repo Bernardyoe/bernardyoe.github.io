@@ -939,7 +939,7 @@ function sendBookingWhatsApp(bookingData) {
     const isPenumpang = bookingData.type === 'penumpang';
     
     // Format pesan WhatsApp
-    let message = `🎫 *KONFIRMASI PEMESANAN TIKET*
+    let message = `*KONFIRMASI PEMESANAN TIKET*
 *PT SEGARA UTAMA*
 
 ========================================
@@ -1007,8 +1007,8 @@ function sendBookingWhatsApp(bookingData) {
 4. ${isPenumpang ? 'Bagasi gratis 20kg per penumpang' : 'Pastikan barang dikemas aman'}
 5. Konfirmasi pembayaran ke nomor ini
 
-📞 *Call Center: 08111346152*
-📧 *Email: bernard_yoe@tomang.ipeka.sch.id*
+*Call Center: 08111346152*
+*Email: bernard_yoe@tomang.ipeka.sch.id*
 
 Terima kasih telah memilih PT Segara Utama! ⚓
 _Selamat Berlayar!_`;
